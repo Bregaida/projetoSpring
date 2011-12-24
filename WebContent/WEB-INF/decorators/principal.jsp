@@ -30,15 +30,6 @@
 	    	
 		</div>
 		<script src="http://www.google.com/jsapi"></script>
-<script type="text/javascript">
-	// Load jQuery
-	google.load("jquery", "1.6.1");
-
-	google.setOnLoadCallback(function() {
-		// Seu código aqui
-	});
-</script>
-
 
 <script type="text/javascript" src="<c:url value="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js" />"></script>
 </body>
