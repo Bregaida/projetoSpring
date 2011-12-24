@@ -3,13 +3,7 @@ package br.com.possege.loja.domain;
 
 
 public class Produto {
-	private Long id;
-	private String nome;
-	private String descricao;
-	private double preco;
-	private String cor;
-	private Long quantidade;
-	
+
 	public Produto(Long id, String nome, String descricao, double preco, String cor, Long quantidade) {
 		this.id = id;
 		this.nome = nome;
@@ -21,6 +15,14 @@ public class Produto {
 	
 	public Produto() {
 	}
+	
+	private Long id;
+	private String nome;
+	private String descricao;
+	private double preco;
+	private String cor;
+	private Long quantidade;
+	
 
 	public Long getQuantidade() {
 		return quantidade;
