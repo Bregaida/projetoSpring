@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="resources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.launching.macosx.MacOSXType/JVM 1.5"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/aopalliance-1.0.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/aspectjweaver-1.6.10.jar"/>
@@ -35,5 +36,7 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/stax-1.2.0.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/stax-api-1.0-2.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/validation-api-1.0.0.GA.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

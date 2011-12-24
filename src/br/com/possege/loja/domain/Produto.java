@@ -1,8 +1,8 @@
 package br.com.possege.loja.domain;
 
 
-public class Produto {
 
+public class Produto {
 	private Long id;
 	private String nome;
 	private String descricao;

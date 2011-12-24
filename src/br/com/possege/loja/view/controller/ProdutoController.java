@@ -19,35 +19,37 @@ import br.com.possege.loja.view.form.ProdutoForm;
 public class ProdutoController {
 
 	@Autowired
-	private ProdutoService			produtoService;
+	private ProdutoService	produtoService;
 
-	private ProdutoForm		produtoForm		= new ProdutoForm();
+	private ProdutoForm		produtoForm;
 
-	private Produto produto;
+	private Produto 		produto;
 	
 	@RequestMapping("/produto/formulario")
 	public ModelAndView formulario() {
-		return new ModelAndView("formulario").addObject("produtoForm", produtoForm);
+		return new ModelAndView("formulario").addObject("produtoForm", new ProdutoForm());
 	}
 	
 	@RequestMapping("/produto/adiciona")
-	public ModelAndView adiciona(ProdutoForm produtoForm, BindingResult result) {
-		
-		produto = produtoForm.getProduto();
+	public ModelAndView adiciona(@Valid ProdutoForm produtoForm, BindingResult result) {
+		if (result.hasErrors()) {
+			return new ModelAndView("formulario").addAllObjects(result.getModel());
+		}
+		populaBean(produtoForm);
 		produtoService.salva(produto);
+		return new ModelAndView("lista").addObject("produtos", produtoService.pegaTodos());
+	}
+
+	@RequestMapping("/produto/lista")
+	public ModelAndView lista() {
 		return new ModelAndView("lista").addObject("produtos", produtoService.pegaTodos());
 	}
 	
 	@RequestMapping(value = "/produto/remove", method = RequestMethod.GET)
-	public ModelAndView remove(@RequestParam(value = "produto.id") long id) {
+	public ModelAndView remove(@Valid @RequestParam(value = "produto.id") long id) {
 		produto = new Produto();
 		produto.setId(id);
 		produtoService.remove(produto);
-		return new ModelAndView("lista").addObject("produtos", produtoService.pegaTodos());
-	}
-	
-	@RequestMapping("/produto/lista")
-	public ModelAndView lista() {
 		return new ModelAndView("lista").addObject("produtos", produtoService.pegaTodos());
 	}
 	
@@ -58,17 +60,31 @@ public class ProdutoController {
 	
 	@RequestMapping("/produto/pesquisa")
 	public ModelAndView pesquisa(@Valid ProdutoForm produtoForm, BindingResult result) {
-		produtoForm.setProduto(produtoService.pegaPorId(produtoForm.getProduto().getId()));
+		produto = produtoService.pegaPorId(produtoForm.getId());
+		produtoForm = populaForm(produto, produtoForm);
 		return new ModelAndView("exibeProduto").addObject("produtoForm", produtoForm);
 	}
 	
-	public ProdutoService getProdutoService() {
-		return produtoService;
+	private void populaBean(ProdutoForm produtoForm) {
+		produto = new Produto();
+		produto.setId(produtoForm.getId());
+		produto.setCor(produtoForm.getCor());
+		produto.setDescricao(produtoForm.getDescricao());
+		produto.setNome(produtoForm.getNome());
+		produto.setPreco(produtoForm.getPreco());
+		produto.setQuantidade(produtoForm.getQuantidade());
 	}
-
-	public void setProdutoService(ProdutoService produtoService) {
-		this.produtoService = produtoService;
+	
+	private ProdutoForm populaForm(Produto produto, ProdutoForm produtoForm) {
+		produtoForm.setId(produto.getId());
+		produtoForm.setCor(produto.getCor());
+		produtoForm.setDescricao(produto.getDescricao());
+		produtoForm.setNome(produto.getNome());
+		produtoForm.setPreco(produto.getPreco());
+		produtoForm.setQuantidade(produto.getQuantidade());
+		return produtoForm;
 	}
+	
 
 	public ProdutoForm getProdutoForm() {
 		return produtoForm;
